@@ -27,7 +27,8 @@ import java.util.List;
 @Api(tags="讲师管理")
 @RestController
 @RequestMapping("/eduservice/teacher")
-public class EduTeacherController {
+public class
+EduTeacherController {
 
     @Autowired
     private EduTeacherService teacherService;
