@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-guli-parent/service/service-oss/src/main/resources/application.properties 
+resources/application.properties
