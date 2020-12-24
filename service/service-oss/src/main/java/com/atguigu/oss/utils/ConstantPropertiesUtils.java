@@ -1,16 +1,17 @@
 package com.atguigu.oss.utils;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
  * @author by liuguangjin
- * @Description TODO
+ * @Description 常量类，读取配置文件application.properties中的配置
  * @Date 20/12/24 15:24
  */
 @Component
-public class ConstantPropertiesUtils {
-    // 读取配置文件内容
+public class ConstantPropertiesUtils implements InitializingBean{
+
     @Value("${aliyun.oss.file.endpoint}")
     private String endpoint;
 
@@ -22,4 +23,21 @@ public class ConstantPropertiesUtils {
 
     @Value("${aliyun.oss.file.bucketname}")
     private String bucketName;
+
+    public static String END_POINT;
+    public static String ACCESS_KEY_ID;
+    public static String ACCESS_KEY_SECRET;
+    public static String BUCKET_NAME;
+    public static String FILE_HOST ;
+
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        END_POINT = endpoint;
+        ACCESS_KEY_ID = keyId;
+        ACCESS_KEY_SECRET = keySecret;
+        BUCKET_NAME = bucketName;
+    }
+
+
 }
