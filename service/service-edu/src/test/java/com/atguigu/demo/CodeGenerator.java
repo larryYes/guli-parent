@@ -11,6 +11,11 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.junit.Test;
 
+/**
+ * 代码生成器
+ */
+
+
 public class CodeGenerator {
 
     @Test
