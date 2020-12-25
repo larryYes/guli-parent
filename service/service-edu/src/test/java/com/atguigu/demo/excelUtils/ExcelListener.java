@@ -23,7 +23,7 @@ public class ExcelListener extends AnalysisEventListener<ReadData> {
     //一行一行去读取excle内容
     @Override
     public void invoke(ReadData user, AnalysisContext analysisContext) {
-        System.out.println("***"+user);
+        System.out.println("****监听器输出："+user);
         list.add(user);
     }
 

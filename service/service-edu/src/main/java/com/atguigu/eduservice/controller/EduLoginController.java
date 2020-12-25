@@ -1,6 +1,7 @@
 package com.atguigu.eduservice.controller;
 
 import com.atguigu.commonutils.R;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
  * @Description TODO
  * @Date 20/12/23 10:53
  */
+@Api(tags = "临时登陆授权")
 @CrossOrigin  // 解决跨域问题
 @RestController
 @RequestMapping("/edu/user")
