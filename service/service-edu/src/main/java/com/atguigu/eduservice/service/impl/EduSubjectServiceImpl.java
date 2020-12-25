@@ -12,6 +12,7 @@ import com.atguigu.servicebase.config.GuliException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +30,9 @@ import java.util.List;
  */
 @Service
 public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubject> implements EduSubjectService {
+
+    @Autowired
+    private EduSubjectMapper eduSubjectMapper;
 
     @Override
     public void importSubjectData(MultipartFile file , EduSubjectService eduSubjectService) {
@@ -52,10 +56,11 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
         ArrayList<SubjectNestedVo> subjectNestedVoArrayList = new ArrayList<>();
 
         //获取一级分类数据记录
-        QueryWrapper<EduSubject> queryWrapper = new QueryWrapper<>();
+       /* QueryWrapper<EduSubject> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("parent_id", 0);
         queryWrapper.orderByAsc("sort", "id");
-        List<EduSubject> subjects = baseMapper.selectList(queryWrapper);
+        List<EduSubject> subjects = baseMapper.selectList(queryWrapper);*/
+        List<EduSubject> subjects = eduSubjectMapper.findAllOneTitle("0");
 
         //获取二级分类数据记录
         QueryWrapper<EduSubject> queryWrapper2 = new QueryWrapper<>();
@@ -63,22 +68,26 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
         queryWrapper2.orderByAsc("sort", "id");
         List<EduSubject> subSubjects = baseMapper.selectList(queryWrapper2);
 
+        /**
+         *   构建树形结构
+          */
         //填充一级分类vo数据
-        int count = subjects.size();
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < subjects.size(); i++) {
             EduSubject subject = subjects.get(i);
 
             //创建一级类别vo对象
             SubjectNestedVo subjectNestedVo = new SubjectNestedVo();
+            //subject值传入subjectNestedVo中
             BeanUtils.copyProperties(subject, subjectNestedVo);
-            subjectNestedVoArrayList.add(subjectNestedVo);
 
+
+            //通过一级标题的ID去遍历旗下所有的二级标题并加入subjectVoArrayList数组
             //填充二级分类vo数据
             ArrayList<SubjectVo> subjectVoArrayList = new ArrayList<>();
-            int count2 = subSubjects.size();
-            for (int j = 0; j < count2; j++) {
+            for (int j = 0; j < subSubjects.size(); j++) {
 
                 EduSubject subSubject = subSubjects.get(j);
+                //一级标题的id等于二级标题的父id
                 if(subject.getId().equals(subSubject.getParentId())){
 
                     //创建二级类别vo对象
@@ -87,9 +96,12 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
                     subjectVoArrayList.add(subjectVo);
                 }
             }
+            // 每遍历一个一级标题，则new一个subjectNestedVo
             subjectNestedVo.setChildren(subjectVoArrayList);
-        }
 
+            // 每做好一个标题的树状结构则将其添加到subjectNestedVoArrayList中
+            subjectNestedVoArrayList.add(subjectNestedVo);
+        }
 
         return subjectNestedVoArrayList;
     }
