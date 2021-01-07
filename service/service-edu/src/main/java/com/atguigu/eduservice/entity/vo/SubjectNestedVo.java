@@ -15,5 +15,9 @@ public class SubjectNestedVo {
 
     private String id;
     private String title;
+
+    /**
+     * 保存二级分类
+     */
     private List<SubjectVo> children = new ArrayList<>();
 }
