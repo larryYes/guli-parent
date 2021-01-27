@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.hibernate.validator.internal.metadata.aggregated.rule.OverridingMethodMustNotAlterParameterConstraints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,19 +31,28 @@ public class EduCourseController {
     private EduCourseService courseService;
 
     @PostMapping("addCourseInfo")
-    public R addCourseInfo(@RequestBody CourseInfoVo courseInfoVo){
+    public R addCourseInfo(@RequestBody CourseInfoVo courseInfoVo) {
         String cid = courseService.saveCourseInfo(courseInfoVo);
 
-        return R.ok().data("courseId",cid);
+        return R.ok().data("courseId", cid);
     }
 
     @ApiOperation(value = "根据ID查询课程")
-    @GetMapping("course-info/{id}")
+    @GetMapping("courseInfo/{id}")
     public R getById(
-            @ApiParam(name="id",value = "课程id",required = true)
+            @ApiParam(name = "id", value = "课程id", required = true)
             @PathVariable String id
-    ){
-        return R.ok().data("item",courseService.getCourseInfoFormById(id));
+    ) {
+        return R.ok().data("item", courseService.getCourseInfoFormById(id));
+    }
+
+    @ApiOperation(value = "根据ID更新课程")
+    @PutMapping("update")
+    public R update(
+            @RequestBody CourseInfoVo courseInfoVo
+    ) {
+        courseService.update(courseInfoVo);
+        return R.ok();
     }
 
 }

@@ -2,6 +2,7 @@ package com.atguigu.eduservice.service;
 
 import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.vo.CourseInfoVo;
+import com.atguigu.eduservice.entity.vo.SubjectVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,6 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author liugj
  * @since 2021-01-07
  */
+
 public interface EduCourseService extends IService<EduCourse> {
 
     /**
@@ -27,4 +29,11 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     CourseInfoVo getCourseInfoFormById(String id);
+
+    /**
+     * 根据课程ID更新
+     * @param courseInfoVo
+     */
+    void update(CourseInfoVo courseInfoVo);
+
 }

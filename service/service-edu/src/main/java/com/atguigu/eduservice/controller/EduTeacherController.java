@@ -104,9 +104,9 @@ EduTeacherController {
     }
 
     @ApiOperation(value = "新增讲师")
-    @PostMapping("addTheacher")
+    @PostMapping("addTeacher")
     public R save(
-            @ApiParam(name = "theacher", value = "讲师对象", required = true)
+            @ApiParam(name = "teacher", value = "讲师对象", required = true)
             @RequestBody EduTeacher eduTeacher
     ){
         //TODO：数据校验
