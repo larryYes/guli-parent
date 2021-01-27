@@ -1,9 +1,12 @@
 package com.atguigu.eduservice;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+import com.atguigu.eduservice.config.ConstantPropertiesUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 
 import java.net.InetAddress;
 
@@ -18,16 +21,11 @@ public class EduApplication {
     public static void main(String[] args){
         SpringApplication.run(EduApplication.class,args);
 
-        /*Environment env = application.getEnvironment();
-        String ip = InetAddress.getLocalHost().getHostAddress();
-        String port = env.getProperty("server.port");
-        String path = env.getProperty("server.servlet.context-path");
-        String serviceName = env.getProperty("spring.application.name");
+        String port = ConstantPropertiesUtils.SERVER_PORT;
         System.out.println("\n----------------------------------------------------------\n\t" +
-                "Service:" + serviceName + " is running! Access URLs:\n\t" +
-                "Local: \t\thttp://localhost:" + port + path + "/\n\t" +
-                "External: \thttp://" + ip + ":" + port + path + "/\n\t" +
-                "swagger-ui: http://" + ip + ":" + port + path + "/swagger-ui.html\n" +
-                "----------------------------------------------------------");*/
+                "swagger-ui: http://localhost:"+port+"/swagger-ui.html"+
+                "\n----------------------------------------------------------");
     }
+
+//    记得先启动nginx
 }
