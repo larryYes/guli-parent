@@ -80,7 +80,6 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
             //subject值传入subjectNestedVo中
             BeanUtils.copyProperties(subject, subjectNestedVo);
 
-
             //通过一级标题的ID去遍历旗下所有的二级标题并加入subjectVoArrayList数组
             //填充二级分类vo数据
             ArrayList<SubjectVo> subjectVoArrayList = new ArrayList<>();
