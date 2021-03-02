@@ -84,7 +84,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         BeanUtils.copyProperties(course, courseInfoVo);
 
         // 后端实现课程信息回显
-        EduTeacher name = eduTeacherService.getById(course.getTeacherId());
+        /*EduTeacher name = eduTeacherService.getById(course.getTeacherId());
         courseInfoVo.setTeacherId(name.getName());
         List<SubjectVo> subject = baseMapper.getSubject(id);
         for (SubjectVo sub :
@@ -96,7 +96,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
                 courseInfoVo.setSubjectParentId(sub.getTitle());
             }
 
-        }
+        }*/
         //查询描述信息
         courseInfoVo.setDescription(courseDescriptionService.getById(id).getDescription());
         return courseInfoVo;

@@ -49,7 +49,7 @@ EduTeacherController {
 
     @ApiOperation(value = "根据ID删除讲师")
     @DeleteMapping("/delete/{id}")
-    public R removeById(@ApiParam(name = "id", value = "讲师ID") @PathVariable Long id){
+    public R removeById(@ApiParam(name = "id", value = "讲师ID") @PathVariable String id){
         teacherService.removeById(id);
         return R.ok();
     }
@@ -58,10 +58,10 @@ EduTeacherController {
     @GetMapping("/pageTeacher/{page}/{limit}")
     public R pageList(
             @ApiParam(name = "page", value = "当前页码", required = true)
-            @PathVariable Long page,
+            @PathVariable Integer page,
 
             @ApiParam(name = "limit", value = "每页记录数", required = true)
-            @PathVariable Long limit
+            @PathVariable Integer limit
     ){
         //Page对象
         Page<EduTeacher> pageTeacher = new Page<>(page, limit);
@@ -117,8 +117,8 @@ EduTeacherController {
     @ApiOperation(value = "根据Id查询讲师")
     @GetMapping("/select/{id}")
     public R getById(
-            @ApiParam(name = "ID", value = "讲师ID", required = true)
-            @PathVariable Long id){
+            @ApiParam(name = "id", value = "讲师ID", required = true)
+            @PathVariable String id){
 
        /* try{
             int i = 10/0;
@@ -133,7 +133,7 @@ EduTeacherController {
     @PutMapping("/update/{id}")
     public R updateById(
             @ApiParam(name = "ID", value = "讲师ID", required = true)
-            @PathVariable Long id,
+            @PathVariable String id,
 
             @ApiParam(name = "id", value = "讲师ID", required = true)
             @RequestBody EduTeacher eduTeacher

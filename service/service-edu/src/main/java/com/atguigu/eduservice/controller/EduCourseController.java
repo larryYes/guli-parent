@@ -44,7 +44,7 @@ public class EduCourseController {
             @ApiParam(name = "id", value = "课程id", required = true)
             @PathVariable String id
     ) {
-        return R.ok().data("item", courseService.getCourseInfoFormById(id));
+        return R.ok().data("courseInfo", courseService.getCourseInfoFormById(id));
     }
 
     @ApiOperation(value = "根据ID更新课程")
