@@ -97,7 +97,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             }
 
         }
-
+        //查询描述信息
         courseInfoVo.setDescription(courseDescriptionService.getById(id).getDescription());
         return courseInfoVo;
     }

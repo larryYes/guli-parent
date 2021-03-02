@@ -1,19 +1,12 @@
 package com.atguigu.eduservice.service.impl;
 
 import com.atguigu.eduservice.entity.EduChapter;
-import com.atguigu.eduservice.entity.EduVideo;
 import com.atguigu.eduservice.entity.vo.CourseInfoTreeVo;
 import com.atguigu.eduservice.mapper.EduChapterMapper;
 import com.atguigu.eduservice.service.EduChapterService;
-import com.atguigu.eduservice.service.EduVideoService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.velocity.util.ArrayListWrapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +24,7 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
     @Override
     public List<CourseInfoTreeVo>  getChapterVideo(String courseId) {
 
+        // 获取所有章节和小节
         List<CourseInfoTreeVo> courseTree = baseMapper.getAllChapterVideo(courseId);
 
         // 将所有菜单权限List数据转化为树形结构
@@ -44,10 +38,8 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
                 resp.add(authDto);
             }
         }
-
         return resp;
     }
-
 
     /**
      * 递归查询

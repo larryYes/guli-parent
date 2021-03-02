@@ -5,10 +5,10 @@
     <select id="getSubject" resultType="com.atguigu.eduservice.entity.vo.SubjectVo">
         SELECT
             s.id,
-            s.title,
+            s.title
         FROM
             `edu_course` c,
-            edu_subject s,
+            edu_subject s
         WHERE
             c.id = #{c}
             AND ( c.subject_id = s.id OR c.subject_parent_id = s.id )

@@ -30,6 +30,7 @@ public class EduCourseController {
     @Autowired
     private EduCourseService courseService;
 
+    @ApiOperation(value = "添加课程信息")
     @PostMapping("addCourseInfo")
     public R addCourseInfo(@RequestBody CourseInfoVo courseInfoVo) {
         String cid = courseService.saveCourseInfo(courseInfoVo);
