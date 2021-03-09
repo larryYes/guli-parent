@@ -42,8 +42,8 @@ EduTeacherController {
     public R findAllTeacher(){
 
         List<EduTeacher> list = teacherService.list(null);
-        return R.ok().data("items", list); // 链式编程
-
+        // 链式编程
+        return R.ok().data("items", list);
         //return teacherService.list(null); 未使用返回结果集
     }
 

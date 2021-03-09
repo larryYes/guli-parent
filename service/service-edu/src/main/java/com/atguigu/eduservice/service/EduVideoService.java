@@ -1,6 +1,7 @@
 package com.atguigu.eduservice.service;
 
 import com.atguigu.eduservice.entity.EduVideo;
+import com.atguigu.eduservice.entity.video.VideoInfoForm;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -19,4 +20,10 @@ public interface EduVideoService extends IService<EduVideo> {
      * @return
      */
     boolean getCountByChapterId(String chapterId);
+
+    boolean saveVideo(VideoInfoForm video);
+
+    VideoInfoForm getVideoById(String id);
+
+    boolean updateVideo(VideoInfoForm videoInfo);
 }

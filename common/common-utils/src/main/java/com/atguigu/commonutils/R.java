@@ -50,6 +50,26 @@ public class R {
     }
 
     /**
+     * 传入boolean类型判断是否成功
+     *
+     * @param status
+     * @return
+     */
+    public static R booleanJudge(boolean status){
+        R r = new R();
+        if (status){
+            r.setSuccess(true);
+            r.setCode(ResultCode.SUCCESS);
+            r.setMessage("成功");
+            return r;
+        }
+        r.setSuccess(false);
+        r.setCode(ResultCode.ERROR);
+        r.setMessage("失败");
+        return r;
+    }
+
+    /**
      * return this; 返回当前对象,
      * R.OK().code().message() 链式编程
      *

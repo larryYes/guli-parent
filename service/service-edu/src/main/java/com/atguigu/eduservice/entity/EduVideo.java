@@ -1,7 +1,10 @@
 package com.atguigu.eduservice.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -66,10 +69,12 @@ public class EduVideo implements Serializable {
     @ApiModelProperty(value = "乐观锁")
     private Long version;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "创建时间", example = "2019-01-01 8:00:00")
+    @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "更新时间", example = "2019-01-01 8:00:00")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
 
