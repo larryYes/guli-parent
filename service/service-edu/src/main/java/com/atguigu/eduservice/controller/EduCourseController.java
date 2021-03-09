@@ -52,8 +52,8 @@ public class EduCourseController {
     public R update(
             @RequestBody CourseInfoVo courseInfoVo
     ) {
-        courseService.update(courseInfoVo);
-        return R.ok();
+        String cid = courseService.update(courseInfoVo);
+        return R.ok().data("courseId", cid);
     }
 
 }

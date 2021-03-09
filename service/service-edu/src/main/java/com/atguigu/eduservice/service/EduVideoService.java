@@ -12,5 +12,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-01-07
  */
 public interface EduVideoService extends IService<EduVideo> {
-
+    /**
+     * 根据章节Id查询是否有video
+     *
+     * @param chapterId
+     * @return
+     */
+    boolean getCountByChapterId(String chapterId);
 }

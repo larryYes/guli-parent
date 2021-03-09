@@ -4,8 +4,12 @@ import com.atguigu.eduservice.entity.EduChapter;
 import com.atguigu.eduservice.entity.vo.CourseInfoTreeVo;
 import com.atguigu.eduservice.mapper.EduChapterMapper;
 import com.atguigu.eduservice.service.EduChapterService;
+import com.atguigu.eduservice.service.EduVideoService;
+import com.atguigu.servicebase.config.GuliException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +25,26 @@ import java.util.List;
 @Service
 public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChapter> implements EduChapterService {
 
+    @Autowired
+    private EduVideoService videoService;
+    @Override
+    public int add(EduChapter chapter) {
+        if(StringUtils.isEmpty(chapter.getCourseId())){
+            throw new GuliException(20001, "课程ID为空");
+        }
+        return baseMapper.insert(chapter);
+    }
+
+    @Override
+    public boolean removeChapterById(String id) {
+        if (videoService.getCountByChapterId(id)){
+            throw new GuliException(20001,"该章节下存在视频课程，请先删除视频课程");
+        }
+        Integer result = baseMapper.deleteById(id);
+        // 删除成功返回True
+        return null!=result && result>0;
+    }
+
     @Override
     public List<CourseInfoTreeVo>  getChapterVideo(String courseId) {
 
@@ -32,9 +56,10 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         for (CourseInfoTreeVo courseInfoTreeVo : courseTree) {
             //获取一级目录,无父级菜单则parentId默认为零
             CourseInfoTreeVo authDto = new CourseInfoTreeVo();
-            if (courseInfoTreeVo.getChapterId().equals("0")) {
+            // TODO:改为判断是否有上级目录，若否则作为顶级目录
+            if (courseInfoTreeVo.getParentId().equals("0")) {
                 authDto.setChildren(getChildren(courseTree, courseInfoTreeVo.getId()));
-                menuCopyProperties(authDto, courseInfoTreeVo);
+                menuCopyProperties(courseInfoTreeVo,authDto);
                 resp.add(authDto);
             }
         }
@@ -52,10 +77,10 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         List<CourseInfoTreeVo> subTree = new ArrayList<>();
         for (CourseInfoTreeVo subMenu : subList) {
             // 上级ID等于下级的parentID
-            if (subMenu.getChapterId().equals(parentId)) {
+            if (subMenu.getParentId().equals(parentId)) {
                 CourseInfoTreeVo menuTree = new CourseInfoTreeVo();
                 menuTree.setChildren(getChildren(subList, subMenu.getId()));
-                menuCopyProperties(menuTree, subMenu);
+                menuCopyProperties(subMenu,menuTree);
                 subTree.add(menuTree);
             }
         }
@@ -68,10 +93,10 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
      * @param subMenu
      * @return
      */
-    public CourseInfoTreeVo menuCopyProperties(CourseInfoTreeVo dto, CourseInfoTreeVo subMenu) {
+    public CourseInfoTreeVo menuCopyProperties(CourseInfoTreeVo subMenu,CourseInfoTreeVo dto) {
         dto.setId(subMenu.getId());
         dto.setTitle(subMenu.getTitle());
-        dto.setChapterId(subMenu.getChapterId());
+        dto.setParentId(subMenu.getParentId());
         return dto;
     }
 }

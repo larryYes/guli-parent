@@ -7,7 +7,7 @@
         SELECT
             id,
             title,
-            chapter_id
+            chapter_id AS parent_id
         FROM
             edu_video v
         WHERE
@@ -16,7 +16,7 @@
         SELECT
             id,
             title,
-            0 AS chapter_id
+            0 AS parent_id
         FROM
             `edu_chapter` c
         WHERE

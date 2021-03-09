@@ -2,25 +2,18 @@ package com.atguigu.eduservice.service.impl;
 
 import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.EduCourseDescription;
-import com.atguigu.eduservice.entity.EduTeacher;
 import com.atguigu.eduservice.entity.vo.CourseInfoVo;
-import com.atguigu.eduservice.entity.vo.SubjectVo;
 import com.atguigu.eduservice.mapper.EduCourseMapper;
 import com.atguigu.eduservice.service.EduCourseDescriptionService;
 import com.atguigu.eduservice.service.EduCourseService;
-import com.atguigu.eduservice.service.EduTeacherService;
 import com.atguigu.servicebase.config.GuliException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import lombok.EqualsAndHashCode;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * <p>
@@ -36,8 +29,6 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Resource
     private EduCourseDescriptionService courseDescriptionService;
 
-    @Resource
-    private EduTeacherService eduTeacherService;
 
     @Override
     @Transactional(rollbackFor = Exception.class) // 事务
@@ -104,17 +95,24 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Override
     @Transactional(rollbackFor = Exception.class) // 事务
-    public void update(CourseInfoVo courseInfoVo){
+    public String update(CourseInfoVo courseInfoVo){
         // 保存课程基本信息
         EduCourse eduCourse = new EduCourse();
         BeanUtils.copyProperties(courseInfoVo,eduCourse);
-        this.updateById(eduCourse);
+        boolean resultCourseInfo = this.updateById(eduCourse);
+        if(!resultCourseInfo){
+            throw new GuliException(20001, "课程信息保存失败");
+        }
 
         // 保存课程详细信息
         EduCourseDescription courseDescription = new EduCourseDescription();
         courseDescription.setDescription(courseInfoVo.getDescription());
         courseDescription.setId(courseInfoVo.getId());
-        courseDescriptionService.updateById(courseDescription);
+        boolean resultCourseDescription = courseDescriptionService.updateById(courseDescription);
+        if(!resultCourseDescription){
+            throw new GuliException(20001, "课程描述保存失败");
+        }
+        return eduCourse.getId();
     }
 
 

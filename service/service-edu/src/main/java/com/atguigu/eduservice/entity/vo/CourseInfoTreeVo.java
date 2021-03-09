@@ -17,10 +17,9 @@ public class CourseInfoTreeVo {
 
     private String id;
 
-    private String chapterId;
-
     private String title;
 
+    private String parentId;
     /**
      * 小节
      */

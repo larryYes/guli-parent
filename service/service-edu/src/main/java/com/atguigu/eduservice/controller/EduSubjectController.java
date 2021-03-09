@@ -2,7 +2,7 @@ package com.atguigu.eduservice.controller;
 
 
 import com.atguigu.commonutils.R;
-import com.atguigu.eduservice.entity.vo.SubjectNestedVo;
+import com.atguigu.eduservice.entity.subject.SubjectNestedVo;
 import com.atguigu.eduservice.service.EduSubjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
