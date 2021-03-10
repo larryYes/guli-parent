@@ -69,6 +69,20 @@ public class R {
         return r;
     }
 
+    public static R integerJudge(Integer integer){
+        R r = new R();
+        if(null != integer && integer > 0){
+            r.setSuccess(true);
+            r.setCode(ResultCode.SUCCESS);
+            r.setMessage("成功");
+            return r;
+        }
+        r.setSuccess(false);
+        r.setCode(ResultCode.ERROR);
+        r.setMessage("失败");
+        return r;
+    }
+
     /**
      * return this; 返回当前对象,
      * R.OK().code().message() 链式编程

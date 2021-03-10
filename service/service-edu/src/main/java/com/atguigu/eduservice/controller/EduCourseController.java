@@ -37,7 +37,7 @@ public class EduCourseController {
     }
 
     @ApiOperation(value = "根据ID查询课程")
-    @GetMapping("courseInfo/{id}")
+    @GetMapping("/{id}")
     public R getById(
             @ApiParam(name = "id", value = "课程id", required = true)
             @PathVariable String id
@@ -46,7 +46,7 @@ public class EduCourseController {
     }
 
     @ApiOperation(value = "根据ID更新课程")
-    @PutMapping("update")
+    @PutMapping()
     public R update(
             @RequestBody CourseInfoVo courseInfoVo
     ) {
@@ -55,12 +55,21 @@ public class EduCourseController {
     }
 
     @ApiOperation(value = "根据ID获取课程发布信息")
-    @GetMapping("/publish/{id}")
+    @GetMapping("/publish-info/{id}")
     public R getCoursePublishVoById(
             @ApiParam(name = "id", value = "课程ID", required = true)
             @PathVariable String id
     ){
-        return R.ok().data("courseInfo",courseService.selectCoursePublishVoById(id);
+        return R.ok().data("courseInfo",courseService.selectCoursePublishVoById(id));
+    }
+
+    @ApiOperation(value = "根据id发布课程(修改课程状态为发布)")
+    @GetMapping("/publish-course/{id}")
+    public R publishCourseById(
+            @ApiParam(name = "id", value = "课程ID", required = true)
+            @PathVariable String id
+    ){
+        return R.integerJudge(courseService.publishCourseById(id));
     }
 }
 

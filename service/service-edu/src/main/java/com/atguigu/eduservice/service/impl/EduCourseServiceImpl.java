@@ -121,4 +121,11 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         return baseMapper.selectCoursePublishVoById(id);
     }
 
+    @Override
+    public Integer publishCourseById(String id) {
+        EduCourse course = new EduCourse();
+        course.setId(id);
+        course.setStatus("Normal");
+        return baseMapper.updateById(course);
+    }
 }
