@@ -43,7 +43,7 @@ public class EduVideoController {
             @ApiParam(name = "id",value = "课时Id")
             @PathVariable String id
     ){
-        return R.ok().data("vedio",videoService.getVideoById(id));
+        return R.ok().data("video",videoService.getVideoById(id));
     }
 
     @ApiOperation(value = "更新课时信息")

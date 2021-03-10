@@ -1,7 +1,7 @@
 package com.atguigu.eduservice.mapper;
 
 import com.atguigu.eduservice.entity.EduChapter;
-import com.atguigu.eduservice.entity.vo.CourseInfoTreeVo;
+import com.atguigu.eduservice.entity.course.CourseInfoTreeVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;

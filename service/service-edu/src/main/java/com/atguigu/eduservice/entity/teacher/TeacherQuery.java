@@ -1,8 +1,7 @@
-package com.atguigu.eduservice.entity.vo;
+package com.atguigu.eduservice.entity.teacher;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 
 /**

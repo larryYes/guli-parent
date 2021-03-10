@@ -3,7 +3,7 @@
 <mapper namespace="com.atguigu.eduservice.mapper.EduChapterMapper">
 
     <!-- 根据课程ID查询课程类别-->
-    <select id="getAllChapterVideo" resultType="com.atguigu.eduservice.entity.vo.CourseInfoTreeVo">
+    <select id="getAllChapterVideo" resultType="com.atguigu.eduservice.entity.course.CourseInfoTreeVo">
         SELECT
             id,
             title,

@@ -2,14 +2,12 @@ package com.atguigu.eduservice.controller;
 
 
 import com.atguigu.commonutils.R;
-import com.atguigu.eduservice.entity.EduCourse;
-import com.atguigu.eduservice.entity.vo.CourseInfoVo;
+import com.atguigu.eduservice.entity.course.CourseInfoVo;
+import com.atguigu.eduservice.entity.course.CoursePublishVo;
 import com.atguigu.eduservice.service.EduCourseService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.hibernate.validator.internal.metadata.aggregated.rule.OverridingMethodMustNotAlterParameterConstraints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,5 +54,13 @@ public class EduCourseController {
         return R.ok().data("courseId", cid);
     }
 
+    @ApiOperation(value = "根据ID获取课程发布信息")
+    @GetMapping("/publish/{id}")
+    public R getCoursePublishVoById(
+            @ApiParam(name = "id", value = "课程ID", required = true)
+            @PathVariable String id
+    ){
+        return R.ok().data("courseInfo",courseService.selectCoursePublishVoById(id);
+    }
 }
 

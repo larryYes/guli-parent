@@ -1,7 +1,7 @@
 package com.atguigu.eduservice.service.impl;
 
 import com.atguigu.eduservice.entity.EduChapter;
-import com.atguigu.eduservice.entity.vo.CourseInfoTreeVo;
+import com.atguigu.eduservice.entity.course.CourseInfoTreeVo;
 import com.atguigu.eduservice.mapper.EduChapterMapper;
 import com.atguigu.eduservice.service.EduChapterService;
 import com.atguigu.eduservice.service.EduVideoService;

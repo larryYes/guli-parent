@@ -3,9 +3,8 @@ package com.atguigu.eduservice.controller;
 
 import com.atguigu.commonutils.R;
 import com.atguigu.eduservice.entity.EduTeacher;
-import com.atguigu.eduservice.entity.vo.TeacherQuery;
+import com.atguigu.eduservice.entity.teacher.TeacherQuery;
 import com.atguigu.eduservice.service.EduTeacherService;
-import com.atguigu.servicebase.config.GuliException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
