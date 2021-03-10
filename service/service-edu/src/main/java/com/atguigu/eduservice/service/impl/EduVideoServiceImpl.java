@@ -54,4 +54,11 @@ public class EduVideoServiceImpl extends ServiceImpl<EduVideoMapper, EduVideo> i
         BeanUtils.copyProperties(videoInfo,video);
         return this.updateById(video);
     }
+
+    @Override
+    public int removeVideoByCourseId(String courseId) {
+        QueryWrapper<EduVideo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(EduVideo::getChapterId, courseId);
+        return baseMapper.delete(queryWrapper);
+    }
 }

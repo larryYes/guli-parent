@@ -3,6 +3,8 @@ package com.atguigu.eduservice.service;
 import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.course.CourseInfoVo;
 import com.atguigu.eduservice.entity.course.CoursePublishVo;
+import com.atguigu.eduservice.entity.course.CourseQuery;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -49,4 +51,19 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     Integer publishCourseById(String id);
+
+    /**
+     * 课程条件分页查询
+     * @param pageParam
+     * @param courseQuery
+     */
+    void pageQuery(Page<EduCourse> pageParam, CourseQuery courseQuery);
+
+    /**
+     * 根据Id删除课程
+     * @param id
+     * @return
+     */
+    int removeCourseById(String id);
+
 }

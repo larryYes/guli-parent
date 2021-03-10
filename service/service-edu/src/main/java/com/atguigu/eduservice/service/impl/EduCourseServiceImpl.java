@@ -4,10 +4,15 @@ import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.EduCourseDescription;
 import com.atguigu.eduservice.entity.course.CourseInfoVo;
 import com.atguigu.eduservice.entity.course.CoursePublishVo;
+import com.atguigu.eduservice.entity.course.CourseQuery;
 import com.atguigu.eduservice.mapper.EduCourseMapper;
+import com.atguigu.eduservice.service.EduChapterService;
 import com.atguigu.eduservice.service.EduCourseDescriptionService;
 import com.atguigu.eduservice.service.EduCourseService;
+import com.atguigu.eduservice.service.EduVideoService;
 import com.atguigu.servicebase.config.GuliException;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -30,6 +35,11 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Resource
     private EduCourseDescriptionService courseDescriptionService;
 
+    @Resource
+    private EduVideoService videoService;
+
+    @Resource
+    private EduChapterService chapterService;
 
     @Override
     @Transactional(rollbackFor = Exception.class) // 事务
@@ -75,20 +85,6 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         CourseInfoVo courseInfoVo = new CourseInfoVo();
         BeanUtils.copyProperties(course, courseInfoVo);
 
-        // 后端实现课程信息回显
-        /*EduTeacher name = eduTeacherService.getById(course.getTeacherId());
-        courseInfoVo.setTeacherId(name.getName());
-        List<SubjectVo> subject = baseMapper.getSubject(id);
-        for (SubjectVo sub :
-                subject) {
-            if (sub.getId().equals(courseInfoVo.getSubjectId())) {
-                courseInfoVo.setSubjectId(sub.getTitle());
-            }
-            if (sub.getId().equals(courseInfoVo.getSubjectParentId())){
-                courseInfoVo.setSubjectParentId(sub.getTitle());
-            }
-
-        }*/
         //查询描述信息
         courseInfoVo.setDescription(courseDescriptionService.getById(id).getDescription());
         return courseInfoVo;
@@ -128,4 +124,42 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         course.setStatus("Normal");
         return baseMapper.updateById(course);
     }
+
+    @Override
+    public void pageQuery(Page<EduCourse> pageParam, CourseQuery courseQuery) {
+
+        QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().orderByDesc(EduCourse::getGmtCreate);
+
+        if (!StringUtils.isEmpty(courseQuery.getTitle())) {
+            queryWrapper.lambda().like(EduCourse::getTitle, courseQuery.getTitle());
+        }
+
+        if (!StringUtils.isEmpty(courseQuery.getTeacherId()) ) {
+            queryWrapper.lambda().eq(EduCourse::getTeacherId, courseQuery.getTeacherId());
+        }
+
+        if (!StringUtils.isEmpty(courseQuery.getSubjectParentId())) {
+            queryWrapper.lambda().ge(EduCourse::getSubjectParentId, courseQuery.getSubjectParentId());
+        }
+
+        if (!StringUtils.isEmpty(courseQuery.getSubjectId())) {
+            queryWrapper.lambda().ge(EduCourse::getSubjectId, courseQuery.getSubjectId());
+        }
+        baseMapper.selectPage(pageParam, queryWrapper);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int removeCourseById(String id) {
+
+        //根据id删除所有视频
+        videoService.removeVideoByCourseId(id);
+
+        //根据id删除所有章节
+        chapterService.removeChapterByCourseId(id);
+
+        return baseMapper.deleteById(id);
+    }
+
 }

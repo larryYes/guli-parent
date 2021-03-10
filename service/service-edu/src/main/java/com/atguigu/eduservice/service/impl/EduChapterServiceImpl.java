@@ -6,6 +6,7 @@ import com.atguigu.eduservice.mapper.EduChapterMapper;
 import com.atguigu.eduservice.service.EduChapterService;
 import com.atguigu.eduservice.service.EduVideoService;
 import com.atguigu.servicebase.config.GuliException;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,13 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         Integer result = baseMapper.deleteById(id);
         // 删除成功返回True
         return null!=result && result>0;
+    }
+
+    @Override
+    public int removeChapterByCourseId(String courseId) {
+        QueryWrapper<EduChapter> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(EduChapter::getCourseId, courseId);
+        return baseMapper.delete(queryWrapper);
     }
 
     @Override
