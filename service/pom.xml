@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>service-vod</module>
+        <module>service-cms</module>
+        <module>service-acl</module>
     </modules>
 
     <dependencies>

@@ -81,6 +81,7 @@ public class EduVideoServiceImpl extends ServiceImpl<EduVideoMapper, EduVideo> i
         //删除视频资源
         if(videoSourceId.length()>0){
             R result = vodClient.reVideo(videoSourceId);
+            // 加入熔断器后
             if(result.getCode()==40000){
                 throw new GuliException(40000,"删除视频失败了,熔断器");
             }
