@@ -61,7 +61,7 @@ public class EduVideoController {
             @ApiParam(name = "id",value = "课时Id")
             @PathVariable String id
     ){
-        return R.booleanJudge(videoService.removeById(id));
+        return R.integerJudge(videoService.removeVideoById(id));
     }
 }
 

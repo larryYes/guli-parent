@@ -30,8 +30,17 @@ public interface EduVideoService extends IService<EduVideo> {
 
     /**
      * 根据courseId删除video业务方法
+     *
+     * 删除course时调用该接口
      * @param id
      * @return
      */
     int removeVideoByCourseId(String id);
+
+    /**
+     * 根据课时id删除课时并同时删除阿里云视频
+     *      * @param id
+     * @return
+     */
+    int removeVideoById(String id);
 }

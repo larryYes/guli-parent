@@ -84,8 +84,6 @@ EduTeacherController {
 
             @ApiParam(name = "limit", value = "每页记录数", required = true)
             @PathVariable Long limit,
-
-            @ApiParam(name = "teachQuery", value = "查询条件", required = false)
             //参数可以为空，用POST请求提交
             @RequestBody(required = false) TeacherQuery teachQuery
     ){
