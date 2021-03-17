@@ -6,6 +6,7 @@ import com.atguigu.educms.service.CrmBannerService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.querydsl.QuerydslRepositoryInvokerAdapter;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class CrmBannerServiceImpl extends ServiceImpl<CrmBannerMapper, CrmBanner
         baseMapper.selectPage(pageParam,queryWrapper);
      }
 
+    @Cacheable(key="'selectIndexList'",value = "banner") // 添加redis缓存查询后返回的数据
     @Override
     public List<CrmBanner> selectIndexList() {
         return baseMapper.selectList(null);

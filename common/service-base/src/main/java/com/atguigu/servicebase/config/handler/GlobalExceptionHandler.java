@@ -1,8 +1,9 @@
-package com.atguigu.servicebase.config;
+package com.atguigu.servicebase.config.handler;
 
 
 
 import com.atguigu.commonutils.R;
+import com.atguigu.servicebase.config.GuliException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

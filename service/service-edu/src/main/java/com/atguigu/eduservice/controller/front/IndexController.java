@@ -1,4 +1,4 @@
-package com.atguigu.eduservice.controller;
+package com.atguigu.eduservice.controller.front;
 
 import com.atguigu.commonutils.R;
 import com.atguigu.eduservice.entity.EduCourse;
@@ -32,7 +32,7 @@ public class IndexController {
     private EduTeacherService teacherService;
 
     //查询前8条热门课程，查询前4条名师
-    @GetMapping("index")
+    @GetMapping("hot")
     public R index() {
         //查询前8条热门课程
         QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
