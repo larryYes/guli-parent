@@ -8,6 +8,7 @@
         <module>common</module>
         <module>service/service-oss</module>
         <module>service-vod</module>
+        <module>service-ucenter</module>
     </modules>
     <!--管理依赖版本和放公共依赖-->
     <parent>

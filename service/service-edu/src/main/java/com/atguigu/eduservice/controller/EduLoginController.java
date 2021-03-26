@@ -1,5 +1,6 @@
 package com.atguigu.eduservice.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.commonutils.R;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class EduLoginController {
 
     //登陆
+    @ResponseBody
     @PostMapping("login")
     public R login(){
-        return R.ok().data("token","admin");
+        return R.ok().data("token","test");
+        // 直接将json信息打印出来
+        // 将获取的json数据封装一层，然后在给返回
     }
 
     //获取用户信息
